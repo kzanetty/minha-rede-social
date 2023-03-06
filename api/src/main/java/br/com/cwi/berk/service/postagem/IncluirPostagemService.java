@@ -1,12 +1,12 @@
-package br.com.cwi.berk.service;
+package br.com.cwi.berk.service.postagem;
 
 import br.com.cwi.berk.controller.request.IncluirPostagemRequest;
 import br.com.cwi.berk.controller.response.PostagemResponse;
-import br.com.cwi.berk.controller.response.PostagemResumidaResponse;
 import br.com.cwi.berk.domain.Postagem;
 import br.com.cwi.berk.mapper.PostagemMapper;
 import br.com.cwi.berk.repository.PostagemRepository;
 import br.com.cwi.berk.security.domain.Usuario;
+import br.com.cwi.berk.service.UsuarioAutenticadoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

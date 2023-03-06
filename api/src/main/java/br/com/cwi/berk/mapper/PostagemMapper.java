@@ -15,7 +15,6 @@ public class PostagemMapper {
         if (isNull(request)) {
             return new Postagem();
         }
-
         Postagem postagem = new Postagem();
         postagem.setDescricao(request.getDescricao());
         postagem.setImageUrl(request.getImageUrl());
@@ -27,7 +26,6 @@ public class PostagemMapper {
         if (isNull(postagem)) {
             return new PostagemResponse();
         }
-
         return PostagemResponse.builder()
                 .autor(UsuarioMapper.toResponse(postagem.getAutor()))
                 .id(postagem.getId())
@@ -44,7 +42,6 @@ public class PostagemMapper {
         if (isNull(postagem)) {
             return new PostagemResumidaResponse();
         }
-
         return PostagemResumidaResponse.builder()
                 .autor(UsuarioMapper.toResponse(postagem.getAutor()))
                 .id(postagem.getId())

@@ -4,6 +4,7 @@ import br.com.cwi.berk.factory.UsuarioFactory;
 import br.com.cwi.berk.security.controller.response.UsuarioResponse;
 import br.com.cwi.berk.security.domain.Usuario;
 import br.com.cwi.berk.security.repository.UsuarioRepository;
+import br.com.cwi.berk.service.usuario.ListarVikingsService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

@@ -1,8 +1,10 @@
-package br.com.cwi.berk.service;
+package br.com.cwi.berk.service.amigo;
 
 import br.com.cwi.berk.controller.response.AmigoResponse;
 import br.com.cwi.berk.repository.AmigoRepository;
 import br.com.cwi.berk.security.controller.response.UsuarioResponse;
+import br.com.cwi.berk.service.usuario.ListarVikingsService;
+import br.com.cwi.berk.service.UsuarioAutenticadoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;

@@ -4,6 +4,7 @@ import br.com.cwi.berk.controller.request.AtualizarMeuPerfilRequest;
 import br.com.cwi.berk.factory.UsuarioFactory;
 import br.com.cwi.berk.security.domain.Usuario;
 import br.com.cwi.berk.security.repository.UsuarioRepository;
+import br.com.cwi.berk.service.usuario.AtualizarMeuPerfilService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

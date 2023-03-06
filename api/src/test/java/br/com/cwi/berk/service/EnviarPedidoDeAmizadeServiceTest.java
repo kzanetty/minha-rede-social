@@ -6,6 +6,8 @@ import br.com.cwi.berk.domain.enums.AmizadeStatus;
 import br.com.cwi.berk.factory.UsuarioFactory;
 import br.com.cwi.berk.repository.AmigoRepository;
 import br.com.cwi.berk.security.domain.Usuario;
+import br.com.cwi.berk.service.amigo.EnviarPedidoDeAmizadeService;
+import br.com.cwi.berk.service.usuario.BuscarUsuarioService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

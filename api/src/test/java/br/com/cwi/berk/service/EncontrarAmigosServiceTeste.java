@@ -7,6 +7,8 @@ import br.com.cwi.berk.factory.AmigoFactory;
 import br.com.cwi.berk.factory.UsuarioFactory;
 import br.com.cwi.berk.mapper.AmigoMapper;
 import br.com.cwi.berk.security.domain.Usuario;
+import br.com.cwi.berk.service.amigo.EncontrarAmigosService;
+import br.com.cwi.berk.service.amigo.ListarAmigosService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -55,7 +57,7 @@ public class EncontrarAmigosServiceTeste {
         );
 
         List<AmigoResponse> amigosResponse = amigos.stream()
-                .map(amigo -> AmigoMapper.toResponse(amigo)).collect(Collectors.toList());
+                .map(AmigoMapper::toResponse).collect(Collectors.toList());
 
         when(listarAmigosService.listar()).thenReturn(amigosResponse);
 

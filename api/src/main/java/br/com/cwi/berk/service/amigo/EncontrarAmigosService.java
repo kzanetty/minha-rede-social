@@ -1,11 +1,6 @@
-package br.com.cwi.berk.service;
+package br.com.cwi.berk.service.amigo;
 
 import br.com.cwi.berk.controller.response.AmigoResponse;
-import br.com.cwi.berk.mapper.AmigoMapper;
-import br.com.cwi.berk.repository.AmigoRepository;
-import br.com.cwi.berk.security.domain.Usuario;
-import br.com.cwi.berk.security.mapper.UsuarioMapper;
-import br.com.cwi.berk.security.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

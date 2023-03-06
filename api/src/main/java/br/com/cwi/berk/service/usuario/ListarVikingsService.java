@@ -1,4 +1,4 @@
-package br.com.cwi.berk.service;
+package br.com.cwi.berk.service.usuario;
 
 import br.com.cwi.berk.security.controller.response.UsuarioResponse;
 import br.com.cwi.berk.security.mapper.UsuarioMapper;
@@ -16,6 +16,6 @@ public class ListarVikingsService {
 
     public Page<UsuarioResponse> listar(Pageable pageable) {
         return usuarioRepository.findAll(pageable)
-                .map(viking -> UsuarioMapper.toResponse(viking));
+                .map(UsuarioMapper::toResponse);
     }
 }

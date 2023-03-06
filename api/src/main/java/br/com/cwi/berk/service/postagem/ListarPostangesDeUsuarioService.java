@@ -1,4 +1,4 @@
-package br.com.cwi.berk.service;
+package br.com.cwi.berk.service.postagem;
 
 import br.com.cwi.berk.controller.response.PostagemResponse;
 import br.com.cwi.berk.mapper.PostagemMapper;
@@ -16,6 +16,6 @@ public class ListarPostangesDeUsuarioService {
 
     public Page<PostagemResponse> listar(Long id, Pageable pageable) {
         return postagemRepository.findAllByAutorId(id, pageable)
-                .map(postagem -> PostagemMapper.toResponse(postagem));
+                .map(PostagemMapper::toResponse);
     }
 }

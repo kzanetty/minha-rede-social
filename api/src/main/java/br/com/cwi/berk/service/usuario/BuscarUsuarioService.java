@@ -1,4 +1,4 @@
-package br.com.cwi.berk.service;
+package br.com.cwi.berk.service.usuario;
 
 import br.com.cwi.berk.security.domain.Usuario;
 import br.com.cwi.berk.security.repository.UsuarioRepository;

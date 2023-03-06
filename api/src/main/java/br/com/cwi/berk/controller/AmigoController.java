@@ -2,7 +2,7 @@ package br.com.cwi.berk.controller;
 
 import br.com.cwi.berk.controller.response.AmigoResponse;
 import br.com.cwi.berk.security.controller.response.UsuarioResponse;
-import br.com.cwi.berk.service.*;
+import br.com.cwi.berk.service.amigo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

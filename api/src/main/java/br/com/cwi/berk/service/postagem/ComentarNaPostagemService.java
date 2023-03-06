@@ -1,10 +1,12 @@
-package br.com.cwi.berk.service;
+package br.com.cwi.berk.service.postagem;
 
 import br.com.cwi.berk.controller.request.ComentarNaFotoRequest;
 import br.com.cwi.berk.domain.Comentario;
 import br.com.cwi.berk.domain.Postagem;
 import br.com.cwi.berk.repository.ComentarioRepository;
 import br.com.cwi.berk.security.domain.Usuario;
+import br.com.cwi.berk.service.postagem.BuscarPostagemService;
+import br.com.cwi.berk.service.usuario.BuscarUsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

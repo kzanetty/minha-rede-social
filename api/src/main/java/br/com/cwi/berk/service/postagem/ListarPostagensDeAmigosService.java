@@ -1,10 +1,12 @@
-package br.com.cwi.berk.service;
+package br.com.cwi.berk.service.postagem;
 
 import br.com.cwi.berk.controller.response.AmigoResponse;
 import br.com.cwi.berk.controller.response.PostagemResponse;
 import br.com.cwi.berk.domain.Postagem;
 import br.com.cwi.berk.mapper.PostagemMapper;
 import br.com.cwi.berk.repository.PostagemRepository;
+import br.com.cwi.berk.service.UsuarioAutenticadoService;
+import br.com.cwi.berk.service.amigo.ListarAmigosService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -35,7 +37,7 @@ public class ListarPostagensDeAmigosService {
 
         List<Postagem> listaFiltradaCompostagemDeAmigos = listFiltrada(idAmigos, todasPostagensList);
 
-        return new PageImpl<>(listaFiltradaCompostagemDeAmigos.stream().map(postagem -> PostagemMapper.toResponse(postagem)).collect(Collectors.toList()));
+        return new PageImpl<>(listaFiltradaCompostagemDeAmigos.stream().map(PostagemMapper::toResponse).collect(Collectors.toList()));
     }
 
     public List<Postagem> listarEntity() {
@@ -61,7 +63,7 @@ public class ListarPostagensDeAmigosService {
 
     private List<Postagem> listFiltrada(List<Long> idDeAmigos, List<Postagem> todasPostagensList) {
         List<Postagem> listaFinal = new ArrayList<>();
-        todasPostagensList.stream().forEach(postagem -> {
+        todasPostagensList.forEach(postagem -> {
             for(Long id : idDeAmigos) {
                 if(postagem.getAutor().getId() == id) {
                     listaFinal.add(postagem);

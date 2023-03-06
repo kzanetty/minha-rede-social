@@ -1,9 +1,9 @@
-package br.com.cwi.berk.service;
+package br.com.cwi.berk.service.amigo;
 
 import br.com.cwi.berk.domain.Amigo;
 import br.com.cwi.berk.domain.enums.AmizadeStatus;
 import br.com.cwi.berk.repository.AmigoRepository;
-import br.com.cwi.berk.security.domain.Usuario;
+import br.com.cwi.berk.service.amigo.BuscarSolicitacaoDeAmizadeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;

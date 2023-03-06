@@ -12,7 +12,6 @@ public class AmigoMapper {
         if (isNull(amigo)) {
             return AmigoResponse.builder().build();
         }
-
         return AmigoResponse.builder()
                 .id(amigo.getId())
                 .recebedor(UsuarioMapper.toResponse(amigo.getRecebedor()))

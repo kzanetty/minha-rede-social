@@ -1,4 +1,4 @@
-package br.com.cwi.berk.service;
+package br.com.cwi.berk.service.postagem;
 
 import br.com.cwi.berk.controller.request.AlterarVisibilidadePostagemRequest;
 import br.com.cwi.berk.domain.Postagem;

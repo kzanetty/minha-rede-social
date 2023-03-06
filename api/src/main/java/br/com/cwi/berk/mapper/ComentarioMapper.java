@@ -6,7 +6,6 @@ import br.com.cwi.berk.security.mapper.UsuarioMapper;
 
 public class ComentarioMapper {
 
-
     public static ComentarioResponse toResponse(Comentario comentario) {
         ComentarioResponse comentarioResponse = new ComentarioResponse();
         comentarioResponse.setId(comentario.getId());
