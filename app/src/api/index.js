@@ -13,3 +13,5 @@ export { timelineApi } from "./postagem/timeline.api";
 export { carregarPostagemDeUsuarioPorIdApi } from "./postagem/postagem-usuario-id.api";
 export { curtiPublicacaoApi } from "./curtir/curtir-publicacao.api";
 export { buscarSolicitacoesDeAmizadePendentesApi } from "./buscar-amigos-pendentes/buscar-nao-amigos.api";
+export { descurtirPublicacaoApi } from "./descurtir/descutir-publicacao.api";
+export { buscarPostagemPorIdApi } from "./postagem/buscar-postagem-por-id.api";

@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { buscarSolicitacoesDeAmizadeApi } from "../../../api/solicitacao-amizade/solicitacao-amizade.api";
-import useGlobalUsuario from "../../../context/usuario/usuario.context";
 import { NavListComponent, SolicitacoesDeAmizadeComponent, TimelineComponent, UsuarioComponent } from "../../components";
 import { ButtonComponent } from "../../components/button/button.component";
+import useGlobalUsuario from "../../../context/usuario/usuario.context";
 import './perfil.screen.css'
 import { aceitarPedidoDeAmizadeApi, rejeitarPedidoDeAmizadeApi } from "../../../api"
-import { useToastr } from "../../../hook/use-toastr/use-toastr.hook";
+
+
 
 
 export function PerfilScreen() {
@@ -27,6 +28,11 @@ export function PerfilScreen() {
         buscarSolicitacoesDeAmizade()
     }
 
+    async function rejeitarPedidoDeAmizade(idAmizade) {
+        await rejeitarPedidoDeAmizadeApi(idAmizade)
+        buscarSolicitacoesDeAmizade()
+    }
+
     function mostrar() {
         setVisibilidade(true)
     }
@@ -38,6 +44,12 @@ export function PerfilScreen() {
     useEffect(() => {
         buscarSolicitacoesDeAmizade()
     }, [])
+
+
+
+
+
+
 
     return (
         <>
@@ -56,7 +68,11 @@ export function PerfilScreen() {
                 <UsuarioComponent usuario={usuario} />
             </div>
             {
-                (visibilidade) ? <SolicitacoesDeAmizadeComponent solicitacoes={solicitacoes} />
+                (visibilidade) ?
+                    <SolicitacoesDeAmizadeComponent
+                        solicitacoes={solicitacoes}
+                        aceitarPedidoDeAmizade={aceitarPedidoDeAmizade}
+                        rejeitarPedidoDeAmizade={rejeitarPedidoDeAmizade} />
                     : null
             }
             <TimelineComponent />

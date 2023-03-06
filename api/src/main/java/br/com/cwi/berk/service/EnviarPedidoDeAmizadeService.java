@@ -21,17 +21,22 @@ public class EnviarPedidoDeAmizadeService {
     @Autowired
     private BuscarUsuarioService buscarUsuarioService;
 
+    @Autowired
+    private BuscarSolicitacaoDeAmizadeService buscarSolicitacaoDeAmizadeService;
+
     public AmigoResponse enviar(Long idRecebedor) {
         Usuario usuarioAutenticado = usuarioAutenticadoService.get();
 
         Usuario recebedor = buscarUsuarioService.porId(idRecebedor);
 
-        Amigo amigo = new Amigo();
-        amigo.setSolicitante(usuarioAutenticado);
-        amigo.setRecebedor(recebedor);
-        amigo.setStatus(AmizadeStatus.PENDENTE);
+        Amigo amigo = buscarSolicitacaoDeAmizadeService.porUsuarios(idRecebedor);
 
-        amigoRepository.save(amigo);
+        if(amigo.getStatus() == null || amigo.getStatus() == AmizadeStatus.NEGADO) {
+            amigo.setSolicitante(usuarioAutenticado);
+            amigo.setRecebedor(recebedor);
+            amigo.setStatus(AmizadeStatus.PENDENTE);
+            amigoRepository.save(amigo);
+        }
 
         return AmigoMapper.toResponse(amigo);
     }

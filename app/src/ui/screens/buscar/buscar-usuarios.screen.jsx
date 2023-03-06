@@ -1,19 +1,30 @@
 import { useEffect, useState } from "react"
 import { buscarUsuariosQueNaoSaoMeusAmigosApi, enviarSolicitacaoDeAmizadeApi, buscarSolicitacoesDeAmizadePendentesApi } from "../../../api"
-import { NavListComponent, UsuarioComponent } from "../../components"
-import { useNavigate } from "react-router-dom";
-import { ButtonComponent } from "../../components/button/button.component";
+import useGlobalUsuario from "../../../context/usuario/usuario.context";
+import { NavListComponent, showToast, UsuarioComponent, ButtonComponent } from "../../components"
 import './buscar-usuarios.screen.css'
 
 export function BuscarUsuariosScreen() {
+    const [usuario, setUsuario] = useGlobalUsuario();
     const [usuarios, setUsuarios] = useState([])
-    const [pendentes, setPendentes] = useState([])
-    const [pedidoAmizado, setPedidoAmizade] = useState(null)
-    const navigate = useNavigate();
+    const [solicitacoesPendentes, setSolicitacoesPendentes] = useState([])
 
     async function enviarSolicitacaoDeAmizade(idUsario) {
-        const response = await enviarSolicitacaoDeAmizadeApi(idUsario)
-        setPedidoAmizade(response)
+        try {
+            await enviarSolicitacaoDeAmizadeApi(idUsario)
+            showToast({ type: "success", message: "Solicitação de amizade enviada." });
+            buscarSolicitacoesDeAmizadePendentes()
+            buscarSolicitacoesDeAmizadePendentes()
+        } catch (error) {
+            showToast({ type: "error", message: "Erro ao enviar solicitação de amizade." });
+
+        }
+    }
+
+    async function buscarSolicitacoesDeAmizadePendentes() {
+        const response = await buscarSolicitacoesDeAmizadePendentesApi()
+        console.log(response)
+        setSolicitacoesPendentes(response)
     }
 
     async function buscarUsuariosQueNaoSaoMeusAmigos() {
@@ -21,15 +32,14 @@ export function BuscarUsuariosScreen() {
         setUsuarios(response)
     }
 
-    async function buscarSolicitacoesDeAmizadePendentes() {
-        const response = await buscarSolicitacoesDeAmizadePendentesApi()
-        setPendentes(response)
-    }
-
     useEffect(() => {
         buscarUsuariosQueNaoSaoMeusAmigos()
         buscarSolicitacoesDeAmizadePendentes()
     }, [])
+
+    function validarSeSolicitacaoDeAmizadeEstaPendente(id) {
+        return solicitacoesPendentes.some(amizade => amizade.solicitante.id == id || amizade.recebedor.id == id)
+    }
 
     return (
         <div className="container-screen-buscar">
@@ -39,15 +49,15 @@ export function BuscarUsuariosScreen() {
                 <div className="container-usuarios-disponiveis">
                     {
                         usuarios.map(usuario =>
-                            <div key={usuario.id} className="cards-usuarios-screen-buscar">
-                                <UsuarioComponent usuario={usuario} />
-                                <ButtonComponent onClick={() => enviarSolicitacaoDeAmizade(usuario.id)} texto="Enviar solicitação de amizade" />
-                            </div>
+                            (validarSeSolicitacaoDeAmizadeEstaPendente(usuario.id)) ? null :
+                                <div key={usuario.id} className="cards-usuarios-screen-buscar">
+                                    <UsuarioComponent usuario={usuario} />
+                                    <ButtonComponent onClick={() => enviarSolicitacaoDeAmizade(usuario.id)} texto="Enviar solicitação de amizade" />
+                                </div>
+
                         )
                     }
                 </div>
-
-                <button onClick={() => navigate(-1)}>Voltar</button>
             </div>
         </div>
     )

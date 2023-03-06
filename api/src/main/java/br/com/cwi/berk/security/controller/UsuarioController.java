@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/usuarios")
 public class UsuarioController {
@@ -17,7 +19,7 @@ public class UsuarioController {
     private IncluirUsuarioService service;
 
     @PostMapping
-    public UsuarioResponse incluir(@RequestBody UsuarioRequest request) {
+    public UsuarioResponse incluir(@Valid @RequestBody UsuarioRequest request) {
         return service.incluir(request);
     }
 }

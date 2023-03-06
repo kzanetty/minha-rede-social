@@ -44,6 +44,9 @@ public class PostagemController {
     @Autowired
     private ListarTimeLineService listarTimeLineService;
 
+    @Autowired
+    private BuscarPostagemService buscarPostagemService;
+
     @GetMapping()
     @ResponseStatus(HttpStatus.OK)
     public Page<PostagemResponse> listarMinhasPostagens(Pageable pageable) {
@@ -54,6 +57,12 @@ public class PostagemController {
     @ResponseStatus(HttpStatus.OK)
     public Page<PostagemResponse> listarPostagensPorIdDeUsuario(@PathVariable Long id, Pageable pageable) {
         return listarPostangesDeUsuarioService.listar(id, pageable);
+    }
+
+    @GetMapping("/buscar/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public PostagemResponse listarPostagensPorId(@PathVariable Long id) {
+        return buscarPostagemService.porIdResponse(id);
     }
 
     @GetMapping("/amigos")

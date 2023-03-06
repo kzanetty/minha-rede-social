@@ -29,11 +29,6 @@ public class VikingController {
     @Autowired
     private DetalharUsuarioService detalharUsuarioService;
 
-    @GetMapping("/testecompose")
-    public String testeCompose() {
-        return "funcionou";
-    }
-
     @GetMapping
     public Page<UsuarioResponse> listarUsuariosPaginado(Pageable pageable) {
         return listarVikingsService.listar(pageable);
@@ -45,8 +40,8 @@ public class VikingController {
     }
 
     @PostMapping("/editar")
-    public void atualizarMeuPerfil(@Valid @RequestBody AtualizarMeuPerfilRequest request) {
-        atualizarMeuPerfilService.atualizar(request);
+    public UsuarioResponse atualizarMeuPerfil(@Valid @RequestBody AtualizarMeuPerfilRequest request) {
+        return atualizarMeuPerfilService.atualizar(request);
     }
 
     @GetMapping("/pesquisar")

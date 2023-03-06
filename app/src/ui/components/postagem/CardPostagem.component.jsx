@@ -1,18 +1,25 @@
-import { useState } from 'react'
-import { curtiPublicacaoApi } from '../../../api'
+import { useEffect, useState } from 'react'
+import { buscarPostagemPorIdApi, curtiPublicacaoApi, descurtirPublicacaoApi } from '../../../api'
 import { adicionarComentarioApi } from '../../../api/comentario/comentar.api'
 import useGlobalUsuario from '../../../context/usuario/usuario.context'
-import { ButtonComponent } from '../button/button.component'
 import './CardPostagem.component.css'
 
 
 export function CardPostagem({ postagem }) {
     const [comentario, setComentario] = useState("")
     const [usuario, setUsuario] = useGlobalUsuario();
+    const [curtidas, setCurtidas] = useState(postagem.curtidas.length)
 
     async function curtir(idPostagem) {
-        await curtiPublicacaoApi(idPostagem)
-        window.location.reload(true);
+        const postagem = await buscarPostagemPorIdApi(idPostagem)
+        const estado = postagem.curtidas.find(curtida => curtida.id == usuario.id)
+        if (estado) {
+            await descurtirPublicacaoApi(idPostagem)
+            setCurtidas(oldCurtidas => oldCurtidas - 1)
+        } else {
+            await curtiPublicacaoApi(idPostagem)
+            setCurtidas(oldCurtidas => oldCurtidas + 1)
+        }
     }
 
     async function comentar(idPostagem) {
@@ -35,7 +42,7 @@ export function CardPostagem({ postagem }) {
 
             <div className='icon-like-numero'>
                 <img src="https://www.freepnglogos.com/uploads/like-png/like-icon-line-iconset-iconsmind-35.png" alt="" className='image-like' />
-                <p>{postagem.curtidas.length}</p>
+                <p>{curtidas}</p>
             </div>
 
             <div className='interacoes-card-postagem'>

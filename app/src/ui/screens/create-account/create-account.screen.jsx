@@ -1,9 +1,10 @@
 import { useState } from "react";
-import useGlobalUsuario from "../../../context/usuario/usuario.context";
 import { NavListComponent } from "../../components"
 import { CriarContaApi } from "../../../api/criar-conta/criar.conta.api";
+import { ButtonComponent, showToast } from "../../components";
+import useGlobalUsuario from "../../../context/usuario/usuario.context";
 import './create-account.screen.css'
-import { ButtonComponent } from "../../components/button/button.component";
+import { useNavigate } from "react-router-dom";
 
 export function CreateAccountScreen() {
     const [nome, setNome] = useState(null);
@@ -13,17 +14,46 @@ export function CreateAccountScreen() {
     const [dataNascimento, setDataNascimento] = useState(null);
     const [imageUrl, setImageUrl] = useState(null);
 
+    const navigate = useNavigate()
+
     const [usuario, setUsuario] = useGlobalUsuario();
 
     async function criarConta() {
-        const response = await CriarContaApi({ nome, email, apelido, dataNascimento, imageUrl, senha })
-        setUsuario(response);
+        if (validacoes(nome, email, senha, dataNascimento)) {
+            try {
+                const response = await CriarContaApi({ nome, email, apelido, dataNascimento, imageUrl, senha })
+                setUsuario(response);
+                showToast({ type: "success", message: "Personagem criado com sucesso." });
+                navigate('/profile')
+            } catch (error) {
+                showToast({ type: "error", message: error.response.data.message });
+            }
+        }
+    }
+
+    function validacoes(nome, email, senha, dataNascimento) {
+        if (nome == null || nome == "") {
+            showToast({ type: "error", message: "O nome é obrigatório." });
+            return false
+        }
+        if (email == null || nome == "") {
+            showToast({ type: "error", message: "O email é obrigatório." });
+            return false
+        }
+        if (senha == null || nome == "") {
+            showToast({ type: "error", message: "A senha é obrigatória." });
+            return false
+        }
+        if (dataNascimento == null || nome == "") {
+            showToast({ type: "error", message: "A dataNascimento é obrigatória." });
+            return false
+        }
+        return true;
     }
 
     return (
         <>
             <NavListComponent />
-
             <div className="container-formulario-criar-conta">
                 <h1>Cadastro</h1>
 

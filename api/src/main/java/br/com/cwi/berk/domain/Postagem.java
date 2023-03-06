@@ -30,7 +30,7 @@ public class Postagem {
     @Enumerated(EnumType.STRING)
     private VisibilidadePublicacao visibilidade;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "curtida",
             joinColumns = @JoinColumn(name = "id_postagem"),

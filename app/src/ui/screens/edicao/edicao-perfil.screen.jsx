@@ -1,23 +1,60 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { atualizarUsuarioApi } from "../../../api/editar-usuario/editar-usuario.api";
 import useGlobalUsuario from "../../../context/usuario/usuario.context";
-import { NavListComponent } from "../../components";
-import { ButtonComponent } from "../../components/button/button.component";
+import { NavListComponent, ButtonComponent, showToast } from "../../components";
 import './edicao-perfil.screen.css'
 
 export function EditarPerfilScreen() {
     const [usuario, setUsuario] = useGlobalUsuario();
     const [visivel, setVisivel] = useState(false)
 
-    const [nome, setNome] = useState(usuario?.nome)
-    const [apelido, setApelido] = useState(usuario?.apelido)
-    const [imagem, setImagem] = useState(usuario?.imageUrl)
+    const [nome, setNome] = useState(usuario?.nome ? usuario?.nome : null)
+    const [apelido, setApelido] = useState(usuario?.apelido ? usuario?.apelido : null)
+    const [imagem, setImagem] = useState(usuario?.imageUrl ? usuario?.imageUrl : null)
 
     async function handleSubmit(event) {
         event.preventDefault();
-        await atualizarUsuarioApi(nome, apelido, imagem)
-        setVisivel(true)
+        if (validate(nome, usuario.nome, apelido, usuario.apelido, imagem, usuario.imageUrl)) {
+            try {
+                const response = await atualizarUsuarioApi(nome, apelido, imagem)
+                setVisivel(true)
+                showToast({ type: "success", message: "Alteração realizada com sucesso" });
+                setUsuario(response)
+            } catch (error) {
+                showToast({ type: "error", message: "Erro ao tentar alterar dados do usuario" });
+            }
+        }
     }
+
+    function validate(nome, nomeUsuario, apelido, apelidoUsuario, imagem, imagemUsuario) {
+        return (validacao(nome) && validacao(apelido) && validacao(imagem)) &&
+            validateRepeticao(nome, nomeUsuario, apelido, apelidoUsuario, imagem, imagemUsuario)
+    }
+
+    function validacao(dado) {
+        if (dado == null) {
+            showToast({ type: "error", message: "Os campos não podem estar vazios." });
+            return false
+        }
+        if (dado.length < 1) {
+            showToast({ type: "error", message: "Você deve preencher todas informações" });
+            return false
+        }
+        if (dado = "") {
+            showToast({ type: "error", message: "Você deve preencher todas informações" });
+            return false
+        }
+        return true
+    }
+
+    function validateRepeticao(nome, nomeUsuario, apelido, apelidoUsuario, imagem, imagemUsuario) {
+        if (nome === nomeUsuario && apelido === apelidoUsuario && imagem === imagemUsuario) {
+            showToast({ type: "error", message: "Você não está alterando nada" });
+            return false
+        }
+        return true
+    }
+
 
     return (
         <div className="container-screen-editar">

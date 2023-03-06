@@ -1,7 +1,9 @@
 package br.com.cwi.berk.service;
 
 import br.com.cwi.berk.controller.request.AtualizarMeuPerfilRequest;
+import br.com.cwi.berk.security.controller.response.UsuarioResponse;
 import br.com.cwi.berk.security.domain.Usuario;
+import br.com.cwi.berk.security.mapper.UsuarioMapper;
 import br.com.cwi.berk.security.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,7 +17,7 @@ public class AtualizarMeuPerfilService {
     @Autowired
     private UsuarioAutenticadoService usuarioAutenticadoService;
 
-    public void atualizar(AtualizarMeuPerfilRequest request) {
+    public UsuarioResponse atualizar(AtualizarMeuPerfilRequest request) {
         Usuario usuario = usuarioAutenticadoService.get();
 
         usuario.setNome(request.getNome());
@@ -23,5 +25,7 @@ public class AtualizarMeuPerfilService {
         usuario.setImageUrl(request.getImageUrl());
 
         usuarioRepository.save(usuario);
+
+        return UsuarioMapper.toResponse(usuario);
     }
 }

@@ -1,21 +1,8 @@
-import { Link } from "react-router-dom"
 import { UsuarioComponent } from ".."
-import { aceitarPedidoDeAmizadeApi, rejeitarPedidoDeAmizadeApi } from "../../../api"
 import { ButtonComponent } from "../button/button.component"
 import "./solicitacao-amizade.component.css"
 
-
-export function SolicitacoesDeAmizadeComponent({ solicitacoes }) {
-
-    async function aceitarPedidoDeAmizade(idAmizade) {
-        await aceitarPedidoDeAmizadeApi(idAmizade)
-        window.location.reload(true);
-    }
-
-    async function rejeitarPedidoDeAmizade(idAmizade) {
-        await rejeitarPedidoDeAmizadeApi(idAmizade)
-        window.location.reload(true);
-    }
+export function SolicitacoesDeAmizadeComponent({ solicitacoes, aceitarPedidoDeAmizade, rejeitarPedidoDeAmizade }) {
 
     return (
         <div className="container-card-amizade">

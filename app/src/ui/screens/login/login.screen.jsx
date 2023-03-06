@@ -4,7 +4,7 @@ import { useNavigate } from "react-router";
 import { LogarApi } from "../../../api/logar/logar.api";
 import useGlobalUsuario from "../../../context/usuario/usuario.context";
 import './login.screen.css'
-import { ButtonComponent } from "../../components/button/button.component";
+import { ButtonComponent, showToast } from "../../components";
 
 export function LoginScreen() {
     const [email, setEmail] = useState("soluco@cwi.com.br");
@@ -13,8 +13,13 @@ export function LoginScreen() {
     const navigate = useNavigate();
 
     async function handleLogar() {
-        const response = await LogarApi(email, senha)
-        setUsuario(response)
+        try {
+            const response = await LogarApi(email, senha)
+            setUsuario(response)
+            showToast({ type: "success", message: "Você realizou login com sucesso." });
+        } catch (error) {
+            showToast({ type: "error", message: "Erro ao tentar fazer login." });
+        }
     }
 
     useEffect(() => {
@@ -49,6 +54,7 @@ export function LoginScreen() {
                     <br />
                     <ButtonComponent onClick={handleLogar} texto="login" />
                 </div>
+
             </div>
         </>
     )

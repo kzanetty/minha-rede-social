@@ -1,17 +1,19 @@
 import { useEffect, useState } from "react"
-import { buscarAmigosDoUsuarioApi, desfazerAmizadeApi } from "../../../api"
+import { buscarAmigosDoUsuarioApi, buscarUsuarioPorIdApi, desfazerAmizadeApi } from "../../../api"
 import useGlobalUsuario from "../../../context/usuario/usuario.context";
-import { ButtonComponent } from "../button/button.component";
-import { UsuarioComponent } from "../usuario/card-usuario.component"
+import { showToast, ButtonComponent, UsuarioComponent } from "../";
 import './amigos-usuario-autenticado.component.css'
 
 export function AmigosComponent() {
     const [amigos, setAmigos] = useState([])
-    const [usuario, setUsuario] = useGlobalUsuario();
+    const [usuario,] = useGlobalUsuario();
 
     async function desfazerAmizade(idAmizade) {
         await desfazerAmizadeApi(idAmizade)
-        window.location.reload(true);
+        const amigoExcluido = await buscarUsuarioPorIdApi(idAmizade)
+        showToast({ type: "success", message: "A amizade foi desfeita." });
+        const response = await buscarAmigosDoUsuarioApi()
+        setAmigos(response)
     }
 
     useEffect(() => {
@@ -19,7 +21,6 @@ export function AmigosComponent() {
             const response = await buscarAmigosDoUsuarioApi()
             setAmigos(response)
         }
-
         buscarAmigos()
     }, [])
 

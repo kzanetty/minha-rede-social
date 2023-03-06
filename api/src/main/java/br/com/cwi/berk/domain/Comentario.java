@@ -16,9 +16,17 @@ public class Comentario {
     private Long id;
 
 
+
+
     @ManyToOne
     @JoinColumn(name = "id_postagem")
     private Postagem Postagem;
+
+
+
+
+
+
 
     @OneToOne
     @JoinColumn(name = "id_usuario")
