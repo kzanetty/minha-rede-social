@@ -12,8 +12,6 @@ public class ComentarNaFotoRequest {
 
     @NotNull
     private Long idUsuario;
-    @NotNull
-    private Long idPostagem;
     @NotBlank
     private String comentario;
 }

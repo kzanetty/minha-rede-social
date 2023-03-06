@@ -19,7 +19,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Getter @Setter @EqualsAndHashCode(of = "id") @ToString(of = "id")
+@Getter @Setter @ToString(of = "id")
 public class Usuario {
 
     @Id

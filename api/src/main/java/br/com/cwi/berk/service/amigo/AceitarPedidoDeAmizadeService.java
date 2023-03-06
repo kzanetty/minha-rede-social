@@ -31,7 +31,7 @@ public class AceitarPedidoDeAmizadeService {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Esse pedido de amizade não esta como pendente.");
         }
 
-        if(amigo.getRecebedor().getId() != usuario.getId()) {
+        if(amigo.getRecebedor().getId() != usuario.getId() && amigo.getSolicitante().getId() != usuario.getId()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Erro... Esse pedido de amizade não é do seu usuario. ");
         }
 

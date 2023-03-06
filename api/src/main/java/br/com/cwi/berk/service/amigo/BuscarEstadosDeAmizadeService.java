@@ -20,15 +20,6 @@ public class BuscarEstadosDeAmizadeService {
     @Autowired
     private UsuarioAutenticadoService usuarioAutenticadoService;
 
-    public List<Amigo> todasMinhasSolicitacoesDeAmizadePendentes() {
-        Long idUsuarioAutenticado = usuarioAutenticadoService.getId();
-
-        List<Amigo> todasInteracoesDisponiveis = amigoRepository.findAll();
-        todasInteracoesDisponiveis.stream().filter(amigo -> (amigo.getSolicitante().getId() == idUsuarioAutenticado || amigo.getRecebedor().getId() == idUsuarioAutenticado) && amigo.getStatus() == AmizadeStatus.PENDENTE).collect(Collectors.toList());
-
-        return todasInteracoesDisponiveis;
-    }
-
     public List<Amigo> todasInteracoesDeAmizadeQueUsuarioEstaEnvolvido() {
         Long idUsuarioAutenticado = usuarioAutenticadoService.getId();
         List<Amigo> todasInteracoesDisponiveis = amigoRepository.findAll();

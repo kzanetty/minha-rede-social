@@ -19,9 +19,6 @@ import java.util.stream.Collectors;
 public class ListarNaoAmigosService {
 
     @Autowired
-    private AmigoRepository amigoRepository;
-
-    @Autowired
     private UsuarioAutenticadoService usuarioAutenticadoService;
 
     @Autowired

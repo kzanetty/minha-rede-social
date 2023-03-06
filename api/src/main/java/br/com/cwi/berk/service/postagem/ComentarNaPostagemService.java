@@ -23,7 +23,7 @@ public class ComentarNaPostagemService {
     private BuscarUsuarioService buscarUsuarioService;
 
     public void comentar(Long idPostagem, ComentarNaFotoRequest request) {
-        Postagem postagem = buscarPostagemService.porId(request.getIdPostagem());
+        Postagem postagem = buscarPostagemService.porId(idPostagem);
         Usuario usuario = buscarUsuarioService.porId(request.getIdUsuario());
         Comentario comentario = new Comentario();
         comentario.setPostagem(postagem);
