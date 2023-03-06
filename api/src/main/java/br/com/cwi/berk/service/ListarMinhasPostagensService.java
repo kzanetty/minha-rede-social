@@ -4,6 +4,7 @@ import br.com.cwi.berk.controller.response.PostagemResponse;
 import br.com.cwi.berk.domain.Postagem;
 import br.com.cwi.berk.mapper.PostagemMapper;
 import br.com.cwi.berk.repository.PostagemRepository;
+import br.com.cwi.berk.security.mapper.UsuarioMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -22,11 +23,11 @@ public class ListarMinhasPostagensService {
     @Autowired
     private UsuarioAutenticadoService usuarioAutenticadoService;
 
-
     public Page<PostagemResponse> listar(Pageable pageable) {
         Long idUsuarioAutenticado = usuarioAutenticadoService.getId();
         List<Postagem> todasMinhasPostagensList = postagemRepository.findAll().stream().filter(postagem -> postagem.getAutor().getId() == idUsuarioAutenticado)
                 .collect(Collectors.toList());
+
         return new PageImpl<>(todasMinhasPostagensList).map(postagem -> PostagemMapper.toResponse(postagem));
     }
 

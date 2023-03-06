@@ -4,6 +4,7 @@ import br.com.cwi.berk.controller.request.AlterarVisibilidadePostagemRequest;
 import br.com.cwi.berk.controller.request.ComentarNaFotoRequest;
 import br.com.cwi.berk.controller.request.IncluirPostagemRequest;
 import br.com.cwi.berk.controller.response.PostagemResponse;
+import br.com.cwi.berk.controller.response.PostagemResumidaResponse;
 import br.com.cwi.berk.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

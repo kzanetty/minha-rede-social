@@ -1,8 +1,7 @@
 package br.com.cwi.berk.controller.response;
 
-import br.com.cwi.berk.domain.Comentario;
 import br.com.cwi.berk.domain.enums.VisibilidadePublicacao;
-import br.com.cwi.berk.security.domain.Usuario;
+import br.com.cwi.berk.security.controller.response.UsuarioResponse;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -16,11 +15,11 @@ import java.util.List;
 public class PostagemResponse {
 
     private Long id;
-    private Usuario autor;
+    private UsuarioResponse autor;
     private String descricao;
     private String imageUrl;
     private LocalDateTime dataCriacao;
     private VisibilidadePublicacao visibilidade;
-    private List<Usuario> curtidas;
-    private List<Comentario> comentarios;
+    private List<UsuarioResponse> curtidas;
+    private List<ComentarioResponse> comentarios;
 }

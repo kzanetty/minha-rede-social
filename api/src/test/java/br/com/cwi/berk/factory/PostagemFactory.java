@@ -23,7 +23,6 @@ public class PostagemFactory {
 
     public static IncluirPostagemRequest getRequest() {
         IncluirPostagemRequest postagem = new IncluirPostagemRequest();
-        postagem.setIdUsuario(SimpleFactory.getRandomLong());
         postagem.setDescricao("Eis aqui uma grande descrição.");
         postagem.setImageUrl("Url da imagem da postagem");
         postagem.setVisibilidade(VisibilidadePublicacao.PUBLICO);

@@ -11,8 +11,6 @@ import javax.validation.constraints.NotNull;
 @Setter
 public class IncluirPostagemRequest {
 
-    @NotNull
-    private Long idUsuario;
     @NotBlank
     private String descricao;
     @NotBlank

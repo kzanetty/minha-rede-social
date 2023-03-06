@@ -2,6 +2,7 @@ package br.com.cwi.berk.service;
 
 import br.com.cwi.berk.controller.request.IncluirPostagemRequest;
 import br.com.cwi.berk.controller.response.PostagemResponse;
+import br.com.cwi.berk.controller.response.PostagemResumidaResponse;
 import br.com.cwi.berk.domain.Postagem;
 import br.com.cwi.berk.mapper.PostagemMapper;
 import br.com.cwi.berk.repository.PostagemRepository;
@@ -18,18 +19,17 @@ public class IncluirPostagemService {
     private PostagemRepository postagemRepository;
 
     @Autowired
-    private BuscarUsuarioService buscarUsuarioService;
+    private UsuarioAutenticadoService usuarioAutenticadoService;
 
     public PostagemResponse incluir(IncluirPostagemRequest request) {
-        Usuario usuario = buscarUsuarioService.porId(request.getIdUsuario());
+        Usuario usuarioAutenticado = usuarioAutenticadoService.get();
 
         Postagem postagem = PostagemMapper.toEntity(request);
-        postagem.setAutor(usuario);
+        postagem.setAutor(usuarioAutenticado);
         postagem.setDataCriacao(LocalDateTime.now());
 
         postagemRepository.save(postagem);
 
-        PostagemResponse pr = PostagemMapper.toResponse(postagem);
-        return pr;
+        return PostagemMapper.toResponse(postagem);
     }
 }

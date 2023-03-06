@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -36,7 +37,7 @@ public class Postagem {
             joinColumns = @JoinColumn(name = "id_postagem"),
             inverseJoinColumns = @JoinColumn(name = "id_usuario")
     )
-    private List<Usuario> curtidas;
+    private List<Usuario> curtidas = new ArrayList<>();
 
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL)
@@ -45,7 +46,7 @@ public class Postagem {
             joinColumns = @JoinColumn(name = "id_postagem"),
             inverseJoinColumns = @JoinColumn(name = "id_usuario")
     )
-    private List<Comentario> comentarios;
+    private List<Comentario> comentarios = new ArrayList<>();
 
 }
 
